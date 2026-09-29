@@ -4,7 +4,7 @@
 <listeners>
 <listener class-name="utilities.ExtentListenerClass"></listener>
 </listeners>
-  <test thread-count="5" name="Test">
+  <test name="Test">
     <classes>
       <class name="testCases.TC001_AccountRegistrationTest"/>
     </classes>

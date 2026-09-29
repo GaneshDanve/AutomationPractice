@@ -27,18 +27,43 @@ public class LoginPage extends Baseclass {
 	@FindBy(xpath="//button[@data-qa='signup-button']")
 	WebElement btnsignup;
 
+	@FindBy(xpath="//h2[text()='Login to your account']")
+	WebElement verify_log_into_your_account;
+	
+	@FindBy(xpath="//input[@data-qa='login-email']")
+	WebElement textCorretEmailAdress;
+	
+	@FindBy(xpath="//input[@data-qa='login-password']")
+	WebElement textCorretPassword;
+	
+	@FindBy(xpath="//button[@data-qa='login-button']")
+	WebElement btnlogin;
+	
 	
 	public void setTxtName(String Name) {
 		txtName.sendKeys(Name);
 	}
 
-	public void setTxtEmail(String Email) {
+	public String setTxtEmail(String Email) {
 		txtEmail.sendKeys(Email);
+		return Email;
 	}
 
 	public void setBtnsignup() {
 		btnsignup.click();
 	}
 	
+	public boolean verifyLogintoyouraccount() {
+	       return verify_log_into_your_account.isDisplayed();
+	}
 	
+	public void entremailadress_signIn(String correctemailadress) {
+		textCorretEmailAdress.sendKeys(correctemailadress);
+	}
+	public void entrepassword_signIn(String correctpossword) {
+		textCorretPassword.sendKeys(correctpossword);
+	}
+	public void clickloginBtn() {
+		btnlogin.click();
+	}
 	}

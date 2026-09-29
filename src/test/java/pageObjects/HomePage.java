@@ -17,7 +17,7 @@ public class HomePage extends Baseclass {
 		this.ldriver=driver;
 		
 		PageFactory.initElements(driver, this);
-	}
+ 	}
 	
 	
 	//Identify WebElement
@@ -28,10 +28,10 @@ public class HomePage extends Baseclass {
 	@FindBy(xpath="//a[@href='/login']")
 	WebElement btnsignuplogin;
 	
-	@FindBy(xpath="//a[contains(text(), 'Logged in as')]")
+	@FindBy(xpath="//a[contains(., 'Logged in as')]")
 	WebElement logedIn;
 	
-	@FindBy(xpath="//a[contains(text(),'Delete Account')]")
+	@FindBy(xpath="//a[@href='/delete_account']")
 	WebElement DeleteAccount;
 	
 	@FindBy(xpath="//h2[@data-qa='account-deleted']")
@@ -39,6 +39,12 @@ public class HomePage extends Baseclass {
 	
 	@FindBy(xpath="//a[@class='btn btn-primary']")
 	WebElement DeleteContinueBtn;
+	
+	@FindBy(xpath="//b[text()='patilgolu']")
+	WebElement LoginAsName;
+	
+	
+	 
 	
 	//Performing Action on WebElement
 	public boolean homepagedisplay() {
@@ -62,6 +68,9 @@ public class HomePage extends Baseclass {
 	}
 	public void clickContinuedelete() {
 		DeleteContinueBtn.click();
+	}
+	public boolean loginAsname() {
+		return LoginAsName.isDisplayed();
 	}
 	
     }

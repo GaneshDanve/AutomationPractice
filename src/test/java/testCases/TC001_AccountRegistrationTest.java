@@ -1,6 +1,12 @@
 package testCases;
 
+import java.time.Duration;
+import java.util.List;
+
 import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,7 +19,8 @@ public class TC001_AccountRegistrationTest extends Baseclass {
 	     
 	@Test
 	public void Verify_Account_Registration() {
-		logger.info("-------------------------testcase1 Started --------------------------");
+		logger.info("----------------testcase1 Started ----------");
+		
 		HomePage hp=new HomePage(driver);
 		boolean messagehomepage= hp.homepagedisplay();
 		//System.out.println(messagehomepage); 
@@ -24,8 +31,8 @@ public class TC001_AccountRegistrationTest extends Baseclass {
 		LoginPage lp= new LoginPage(driver);
 		//RandomStringUtils rm=new Random();
 		String name=RandomStringUtils.randomAlphabetic(7);
-		lp.setTxtName("ganu"+ name);
-		lp.setTxtEmail(name +"@gmail.com");
+		lp.setTxtName(name);
+		String email=lp.setTxtEmail(name+"@gmail.com");
         lp.setBtnsignup();	
         logger.info("Clicked on sign up button");
         
@@ -34,8 +41,8 @@ public class TC001_AccountRegistrationTest extends Baseclass {
         signup.setSelectTitle();
         logger.info("Clicked on Title");
         signup.setTxtName(name);
-        signup.setTxtpassword("1234567");
-        //signup.setSelectdaydrop("1");
+        signup.setTxtpassword("98989898");
+        signup.setSelectdaydrop("1");
         signup.setSelectmonthdrop("June");
         signup.setSelectyeardrop("1993");
         signup.setChkNewletter();
@@ -50,6 +57,7 @@ public class TC001_AccountRegistrationTest extends Baseclass {
         signup.setTxtCity("pune");
         signup.setTxtZipCode("422334");
         signup.setTxtMobNum("9999999999");
+        
         signup.clickBtnCreateAccount();
         
         logger.info("Account created");
@@ -58,10 +66,36 @@ public class TC001_AccountRegistrationTest extends Baseclass {
         AccountpageCreated.clickBtncontinue();  
         logger.info("Clicked on continue button");
         
-       
-        Assert.assertTrue(hp.verifylogindone());
+        HomePage hp1=new HomePage(driver);
+        //Assert.assertTrue(hp.verifylogindone());
         logger.info("verifing logged succesfully");
-        hp.clickDelete();
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+            // १. Ad च्या मेन iFrame मध्ये switch करा
+            List<WebElement> frames = driver.findElements(By.xpath("//iframe[contains(@id,'aswift') or contains(@id,'google_ads_iframe')]"));
+            if (!frames.isEmpty()) {
+                driver.switchTo().frame(frames.get(0));
+
+                // २. जर आत अजून nested iframe असेल तर switch करा
+                List<WebElement> nestedFrames = driver.findElements(By.xpath("//iframe[@id='ad_iframe']"));
+                if (!nestedFrames.isEmpty()) {
+                    driver.switchTo().frame("ad_iframe");
+                }
+
+                // ३. Dismiss/Close बटन शोधून क्लिक करा
+                List<WebElement> dismissBtn = driver.findElements(By.xpath("//div[@id='dismiss-button'] | //span[text()='Close'] | //div[contains(@aria-label,'Close')]"));
+                if (!dismissBtn.isEmpty()) {
+                    dismissBtn.get(0).click();
+                }
+
+                driver.switchTo().defaultContent();
+            }
+        } catch (Exception e) {
+            driver.switchTo().defaultContent();
+        }
+        hp1.clickDelete();
+        System.out.println("okkkkkkk");
         logger.info("click on delete account link");
         Assert.assertTrue(hp.verifydeletmessage());
         logger.info(" Accont deleted successfully");

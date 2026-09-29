@@ -9,10 +9,10 @@ import testCases.Baseclass;
 
 public class AccountCreatedPage extends Baseclass
 {
-	WebDriver ldriver;
-	public AccountCreatedPage(WebDriver rdriver)
+	WebDriver driver;
+	public AccountCreatedPage(WebDriver driver)
 	{
-	this.ldriver=rdriver;
+	this.driver=driver;
 	PageFactory.initElements(driver, this);
 	}
     

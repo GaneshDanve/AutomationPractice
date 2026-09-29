@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,7 +63,7 @@ public class SignUpPage extends Baseclass {
 	WebElement txtZipCode;
 	@FindBy(xpath="//input[@id='mobile_number']")
 	WebElement txtMobNum;
-	@FindBy(xpath="//button[@data-qa='create-account']")
+	@FindBy(xpath="//button[text()='Create Account']")
 	WebElement btnCreateAccount;
 	
 	public String setAccountInformationDisplay() {
@@ -137,13 +138,8 @@ public class SignUpPage extends Baseclass {
 	}
 	
 	public void clickBtnCreateAccount() {
-		
-		 //btnCreateAccount.sendKeys(Keys.ENTER);
-		 btnCreateAccount.click();
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("arguments[0].click();", btnCreateAccount);
+		// btnCreateAccount.click();
 	}
-	public void setTxtMobNum(Keys enter) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

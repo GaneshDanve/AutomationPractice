@@ -80,7 +80,7 @@ public class ExtentListenerClass extends Baseclass implements ITestListener  {
 			e.printStackTrace();
 		}
 		
-		String Screenshotpath= System.getProperty("user.dir") + "\\screenshots\\" + Result.getName() + ".png";
+		String Screenshotpath= ".\\screenshots\\" + Result.getName() + ".png";
 		File screenShotFile= new File(Screenshotpath);
 		
 		if(screenShotFile.exists()) {
@@ -98,7 +98,7 @@ public class ExtentListenerClass extends Baseclass implements ITestListener  {
 
 	@Override
 	public void onTestSuccess(ITestResult Result) {
-		System.out.println("Name of Success method" + Result.getName());
+		System.out.println("Name of Success method  " + Result.getName());
 		test=reports.createTest(Result.getName()); // Create entry in html report
 		test.log(Status.PASS, MarkupHelper.createLabel("Name of the Passed test case is:-->" + Result.getName(), ExtentColor.GREEN));
 	}
